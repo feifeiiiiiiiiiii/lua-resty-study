@@ -81,4 +81,22 @@ function _M.getSchemaForGame(self, appid)
   return request(self, makeRequest(self, "/ISteamUserStats/GetSchemaForGame/v2/", args))
 end
 
+function _M.getPlayerAchievements(self, appid, steamid)
+  local args = {
+    key = self.key,
+    appid = appid,
+    steamid = steamid
+  }
+  return request(self, makeRequest(self, "/ISteamUserStats/GetPlayerAchievements/v0001/", args))
+end
+
+function _M.getUserStatsForGame(self, appid, steamid)
+  local args = {
+    key = self.key,
+    appid = appid,
+    steamid = steamid
+  }
+  return request(self, makeRequest(self, "/ISteamUserStats/GetUserStatsForGame/v0002/", args))
+end
+
 return _M

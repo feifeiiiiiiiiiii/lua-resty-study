@@ -66,3 +66,25 @@ local http = require "resty.steam.steam"
 
 * `appid` steam平台的游戏id.
 
+## getPlayerAchievements
+
+`语法: s:getPlayerAchievements(appid, steamid)`
+
+返回用户在某个游戏下获得的成就
+
+接收`参数`如下:
+
+* `steamid` steam平台的用户id.
+* `appid` steam平台的游戏id.
+* `key` steam平台生成的key.
+
+## getUserStatsForGame
+
+`语法: s:getUserStatsForGame(appid, steamid)`
+
+返回用户玩某个游戏的统计信息
+
+接收`参数`如下:
+
+* `steamid` steam平台的用户id.
+* `appid` steam平台的游戏id.
