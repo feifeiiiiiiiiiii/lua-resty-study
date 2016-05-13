@@ -57,4 +57,28 @@ function _M.getPlayerSummaries(self, steamids)
   return request(self, makeRequest(self, "/ISteamUser/GetPlayerSummaries/v0002/", args))
 end
 
+function _M.getOwnedGames(self, steamid)
+  local args = {
+    steamid = steamid,
+    key = self.key
+  }
+  return request(self, makeRequest(self, "/IPlayerService/GetOwnedGames/v0001/", args))
+end
+
+function _M.getRecentlyPlayedGames(self, steamid)
+  local args = {
+    steamid = steamid,
+    key = self.key
+  }
+  return request(self, makeRequest(self, "/IPlayerService/GetRecentlyPlayedGames/v0001/", args))
+end
+
+function _M.getSchemaForGame(self, appid)
+  local args = {
+    appid = appid,
+    key = self.key
+  }
+  return request(self, makeRequest(self, "/ISteamUserStats/GetSchemaForGame/v2/", args))
+end
+
 return _M
