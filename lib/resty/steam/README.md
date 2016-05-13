@@ -1,4 +1,4 @@
-# lua-rest-steam
+# lua-resty-steam
 
 使用Openresty&Lua封装[Steam Web API](https://developer.valvesoftware.com/wiki/Steam_Web_API).
 
