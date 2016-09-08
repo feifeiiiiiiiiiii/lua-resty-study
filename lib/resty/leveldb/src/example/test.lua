@@ -1,5 +1,7 @@
-local leveldb = require("../leveldb")
+package.cpath = package.cpath..";../?.so"
+package.path = package.cpath..";../?.lua"
 
+local leveldb = require "leveldb"
 local db = leveldb:new("/tmp/db2", 2000)
 
 db:set("hello", "world")
