@@ -166,13 +166,17 @@ $(STATIC_OUTDIR)/table: | $(STATIC_OUTDIR)
 $(STATIC_OUTDIR)/util: | $(STATIC_OUTDIR)
 	mkdir $@
 
+$(STATIC_OUTDIR)/lua: | $(STATIC_OUTDIR)
+	mkdir $@
+
 .PHONY: STATIC_OBJDIRS
 STATIC_OBJDIRS: \
 	$(STATIC_OUTDIR)/db \
 	$(STATIC_OUTDIR)/port \
 	$(STATIC_OUTDIR)/table \
 	$(STATIC_OUTDIR)/util \
-	$(STATIC_OUTDIR)/helpers/memenv
+	$(STATIC_OUTDIR)/helpers/memenv \
+	$(STATIC_OUTDIR)/lua
 
 $(SHARED_OUTDIR):
 	mkdir $@
@@ -192,13 +196,17 @@ $(SHARED_OUTDIR)/table: | $(SHARED_OUTDIR)
 $(SHARED_OUTDIR)/util: | $(SHARED_OUTDIR)
 	mkdir $@
 
+$(SHARED_OUTDIR)/lua: | $(SHARED_OUTDIR)
+	mkdir $@
+
 .PHONY: SHARED_OBJDIRS
 SHARED_OBJDIRS: \
 	$(SHARED_OUTDIR)/db \
 	$(SHARED_OUTDIR)/port \
 	$(SHARED_OUTDIR)/table \
 	$(SHARED_OUTDIR)/util \
-	$(SHARED_OUTDIR)/helpers/memenv 
+	$(SHARED_OUTDIR)/helpers/memenv \
+	$(SHARED_OUTDIR)/lua
 
 $(DEVICE_OUTDIR):
 	mkdir $@
@@ -218,13 +226,17 @@ $(DEVICE_OUTDIR)/table: | $(DEVICE_OUTDIR)
 $(DEVICE_OUTDIR)/util: | $(DEVICE_OUTDIR)
 	mkdir $@
 
+$(DEVICE_OUTDIR)/lua: | $(DEVICE_OUTDIR)
+	mkdir $@
+
 .PHONY: DEVICE_OBJDIRS
 DEVICE_OBJDIRS: \
 	$(DEVICE_OUTDIR)/db \
 	$(DEVICE_OUTDIR)/port \
 	$(DEVICE_OUTDIR)/table \
 	$(DEVICE_OUTDIR)/util \
-	$(DEVICE_OUTDIR)/helpers/memenv 
+	$(DEVICE_OUTDIR)/helpers/memenv \
+	$(DEVICE_OUTDIR)/lua
 
 $(SIMULATOR_OUTDIR):
 	mkdir $@
@@ -244,13 +256,17 @@ $(SIMULATOR_OUTDIR)/table: | $(SIMULATOR_OUTDIR)
 $(SIMULATOR_OUTDIR)/util: | $(SIMULATOR_OUTDIR)
 	mkdir $@
 
+$(SIMULATOR_OUTDIR)/lua: | $(SIMULATOR_OUTDIR)
+	mkdir $@
+
 .PHONY: SIMULATOR_OBJDIRS
 SIMULATOR_OBJDIRS: \
 	$(SIMULATOR_OUTDIR)/db \
 	$(SIMULATOR_OUTDIR)/port \
 	$(SIMULATOR_OUTDIR)/table \
 	$(SIMULATOR_OUTDIR)/util \
-	$(SIMULATOR_OUTDIR)/helpers/memenv 
+	$(SIMULATOR_OUTDIR)/helpers/memenv \
+	$(SIMULATOR_OUTDIR)/lua
 
 $(STATIC_ALLOBJS): | STATIC_OBJDIRS
 $(DEVICE_ALLOBJS): | DEVICE_OBJDIRS
