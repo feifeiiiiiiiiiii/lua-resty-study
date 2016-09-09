@@ -14,7 +14,7 @@ extern "C" {
   typedef struct RecordResponse_s {
     int code;
     int len;
-    char data[1];
+    char *data;
   } RecordResponse;
 }
 

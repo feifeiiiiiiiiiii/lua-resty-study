@@ -10,7 +10,7 @@ ffi.cdef[[
   typedef struct RecordResponse_s {
     int code;
     int len;
-    char data[1];
+    char *data;
   } RecordResponse;
   typedef struct LuaLeveldb LuaLeveldb;
   LuaLeveldb *new_leveldb(const char *path);

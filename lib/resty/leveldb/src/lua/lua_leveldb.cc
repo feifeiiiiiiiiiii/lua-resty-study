@@ -24,6 +24,7 @@ void LuaLeveldb::get(const char *key, RecordResponse *record) {
   if(s.ok()) {
     record->code = Success;
     record->len= value.size();
+    record->data = (char *)malloc(sizeof(char)*record->len);
     memcpy(record->data, value.c_str(), value.size());
     return;
   }
