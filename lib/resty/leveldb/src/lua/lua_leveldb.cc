@@ -34,8 +34,8 @@ int LuaLeveldb::set(const char *key, const char *value) {
   leveldb::WriteOptions write_opts;
   write_opts.sync = true;
   leveldb::Status s = db->Put(write_opts, key, value);
-  if(s.ok()) return 1;
-  return 0;
+  if(s.ok()) return Success;
+  return Error;
 }
 
 int LuaLeveldb::del(const char *key) {
@@ -43,8 +43,41 @@ int LuaLeveldb::del(const char *key) {
   options.sync = true;
   leveldb::Status s = db->Delete(options, key);
   if (s.IsNotFound()) {
-    return 0;
+    return RecordNotFound;
   }
-  if(s.ok()) return 1;
-  return -1;
+  if(s.ok()) return Success;
+  return Error;
 }
+
+int LuaLeveldb::insert(const char *key, const char *value) {
+  leveldb::Status s;
+  std::string record;
+
+  s = db->Get(leveldb::ReadOptions(), key, &record);
+  if(s.ok()) {
+    return RecordExists;
+  }
+
+  leveldb::WriteOptions options;
+  options.sync = true;
+  s = db->Put(options, key, value);
+  if(s.ok()) return Success;
+  return Error;
+}
+
+int LuaLeveldb::update(const char *key, const char *value) {
+  leveldb::Status s;
+  std::string record;
+
+  s = db->Get(leveldb::ReadOptions(), key, &record);
+  if(s.IsNotFound()) {
+    return RecordNotFound;
+  }
+
+  leveldb::WriteOptions options;
+  options.sync = true;
+  s = db->Put(options, key, value);
+  if(s.ok()) return Success;
+  return Error;
+}
+

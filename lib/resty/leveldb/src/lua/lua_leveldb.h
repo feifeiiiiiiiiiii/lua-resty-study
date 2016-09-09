@@ -7,7 +7,8 @@ extern "C" {
   enum responseCode {
     Success = 0,
     Error,
-    RecordNotFound
+    RecordNotFound,
+    RecordExists
   };
 
   typedef struct RecordResponse_s {
@@ -24,6 +25,8 @@ class LuaLeveldb {
     void get(const char *key, RecordResponse *record);
     int set(const char *key, const char *value);
     int del(const char *key);
+    int insert(const char *key, const char *value);
+    int update(const char *key, const char *value);
   private:
     leveldb::DB* db;
     leveldb::Cache* cache_;
@@ -46,6 +49,14 @@ extern "C" {
 
   int del(LuaLeveldb *_this, const char *key) {
     return _this->del(key);
+  }
+
+  int insert(LuaLeveldb *_this, const char *key, const char *value) {
+    return _this->insert(key, value);
+  }
+
+  int update(LuaLeveldb *_this, const char *key, const char *value) {
+    return _this->update(key, value);
   }
 
   void LuaLeveldb_gc(LuaLeveldb *_this) {

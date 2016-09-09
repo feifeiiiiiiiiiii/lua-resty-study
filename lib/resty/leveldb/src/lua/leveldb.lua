@@ -17,11 +17,17 @@ ffi.cdef[[
   void get(LuaLeveldb *db, const char *key, RecordResponse *record);
   int set(LuaLeveldb *db, const char *key, const char *value);
   int del(LuaLeveldb *db, const char *key);
+  int insert(LuaLeveldb *db, const char *key, const char *value);
+  int update(LuaLeveldb *db, const char *key, const char *value);
   void LuaLeveldb_gc(LuaLeveldb *this);
 ]]
 
 local _M = {
   _VERSION = '0.0.1'
+}
+
+local commands = {
+  "set", "del", "insert", "update"
 }
 
 local mt = { __index = _M }
@@ -37,12 +43,10 @@ function _M.get(self, key)
   end
 end
 
-function _M.set(self, ...)
-  return leveldb.set(self.super, ...)
-end
-
-function _M.del(self, ...)
-  return leveldb.del(self.super, ...)
+for k, v in ipairs(commands) do
+  _M[v] = function(self, ...)
+    return leveldb[v](self.super, ...)
+  end
 end
 
 function find_shared_obj(cpath, so_name)
