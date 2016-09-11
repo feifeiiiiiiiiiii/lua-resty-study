@@ -24,12 +24,21 @@ void LuaLeveldb::get(const char *key, RecordResponse *record) {
   if(s.ok()) {
     record->code = Success;
     record->len= value.size();
-    record->data = (char *)malloc(sizeof(char)*record->len);
-    memcpy(record->data, value.c_str(), value.size());
     return;
   }
   record->code = RecordNotFound;
 }
+
+void LuaLeveldb::read_data(const char *key, const char *data) {
+  std::string value;
+  leveldb::Status s = db->Get(leveldb::ReadOptions(), key, &value);
+  if(s.ok()) {
+    memcpy((void *)data, value.c_str(), value.size());
+    return;
+  }
+  data = NULL;
+}
+
 
 int LuaLeveldb::set(const char *key, const char *value) {
   leveldb::WriteOptions write_opts;

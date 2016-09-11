@@ -14,7 +14,6 @@ extern "C" {
   typedef struct RecordResponse_s {
     int code;
     int len;
-    char *data;
   } RecordResponse;
 }
 
@@ -27,6 +26,7 @@ class LuaLeveldb {
     int del(const char *key);
     int insert(const char *key, const char *value);
     int update(const char *key, const char *value);
+    void read_data(const char *key, const char *data);
   private:
     leveldb::DB* db;
     leveldb::Cache* cache_;
@@ -57,6 +57,10 @@ extern "C" {
 
   int update(LuaLeveldb *_this, const char *key, const char *value) {
     return _this->update(key, value);
+  }
+
+  void read_data(LuaLeveldb *_this, const char *key, const char *value) {
+    return _this->read_data(key, value);
   }
 
   void LuaLeveldb_gc(LuaLeveldb *_this) {

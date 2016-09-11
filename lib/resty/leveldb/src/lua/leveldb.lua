@@ -10,7 +10,6 @@ ffi.cdef[[
   typedef struct RecordResponse_s {
     int code;
     int len;
-    char *data;
   } RecordResponse;
   typedef struct LuaLeveldb LuaLeveldb;
   LuaLeveldb *new_leveldb(const char *path);
@@ -19,6 +18,7 @@ ffi.cdef[[
   int del(LuaLeveldb *db, const char *key);
   int insert(LuaLeveldb *db, const char *key, const char *value);
   int update(LuaLeveldb *db, const char *key, const char *value);
+  void read_data(LuaLeveldb *db, const char *key, const char *value);
   void LuaLeveldb_gc(LuaLeveldb *this);
 ]]
 
@@ -37,7 +37,13 @@ function _M.get(self, key)
   local record = ffi.new("RecordResponse", {1})
   leveldb.get(self.super, key, record)
   if record.code == 0 then
-    return ffi.string(record.data)
+    local value = ffi.new("char[?]", record.len + 1);
+    leveldb.read_data(self.super, key, value)
+    if value ~= ffi.NULL then
+      return ffi.string(value, record.len)
+    else
+      return nil
+    end
   else
     return nil
   end
