@@ -1,4 +1,4 @@
-local url = require "socket.url"
+local url = require "resty.url"
 local http  = require "resty.http"
 local cjson = require "cjson"
 
